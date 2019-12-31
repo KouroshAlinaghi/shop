@@ -1,0 +1,33 @@
+<%= form_for @user, url: {action: "create"} do |form| %>
+
+  <p>
+    <%= form.label :email, "Your E-mail:" %>
+    <%= form.email_field :email %>
+  </p>
+
+  <p>
+    <%= form.label :username, "Your Userame:" %>
+    <%= form.text_field :username %>
+  </p>
+
+  <p>
+    <%= form.label :password, "Your Passowrd:" %>
+    <%= form.text_field :password %>
+  </p>
+
+  <p>
+    <%= form.label :password_confirmation, "Your Password Confirmation:" %>
+    <%= form.text_field :password_confirmation %>
+  </p>
+
+  <p>
+    <%= form.label :admin, "Should be Admin?" %>
+    <%= form.check_box :admin %>
+  </p>
+
+  <p class='buttons'>
+    <%= form.submit "Create User!" %>
+  </p>
+
+<% end %>
+

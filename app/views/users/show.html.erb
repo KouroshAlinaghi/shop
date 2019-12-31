@@ -1,0 +1,77 @@
+<head>
+</head>
+
+<div class="container">
+    <h2><%= current_user.username if logged_in? =%></h2>
+
+       <% if logged_in? %>
+          <%= link_to "Log out", logout_path, method: "delete" %>
+        <% end %>
+        <% if is_admin? %>
+          <%= flash[:notice] =%>
+          <%= flash[:error] =%>
+  <table class="table mt-5 table-bordered">
+  <tr>
+    <th>E-mail</th>
+    <th>Username</th>
+    <th>Admin</th>
+    <th>Encrypted Password</th>
+    <th>Delete User</th>
+  </tr>
+
+<% @users.each do |user| %>
+<tr>
+    <td><%= user.email %></td>
+    <td><%= user.username %></td>
+    <td><%= user.admin %></td>
+    <td><%= user.password_digest %></td>
+    <td><%= button_to "delete", user_path(user), :method=>:delete, :class=>:destroy %></td>
+</tr>
+<% end %>
+  </table>
+
+  <br>
+  <h2>Adding New User</h2>  
+  <br>
+
+  <%= form_for @new_user, url: {controller: 'users', action: "create_by_admins"} do |form| %> 
+
+  <p>
+    <%= form.label :email, "Your E-mail:" %>
+    <%= form.email_field :email %>
+  </p>
+
+  <p>
+    <%= form.label :username, "Your Userame:" %>
+    <%= form.text_field :username %>
+  </p>
+
+  <p>
+    <%= form.label :password, "Your Passowrd:" %>
+    <%= form.text_field :password %>
+  </p>
+
+  <p>
+    <%= form.label :password_confirmation, "Your Password Confirmation:" %>
+    <%= form.text_field :password_confirmation %>
+  </p>
+
+  <p>
+    <%= form.label :admin, "Should be Admin?" %>
+    <%= form.check_box :admin %>
+  </p>
+
+  <p class='buttons'>
+    <%= form.submit "Create User!" %>
+  </p>
+
+<% end %>
+
+
+<% else %>
+  <br>
+    you cannot even suck my dick
+<% end %>
+
+
+</div>

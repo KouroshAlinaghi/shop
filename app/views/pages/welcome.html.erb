@@ -1,0 +1,6 @@
+<h1>Pages#welcome</h1>
+<p>Find me in app/views/pages/welcome.html.erb</p>
+<% if current_user %>
+  <%= link_to 'Log out', logout_path, method: :delete %>
+  <h2>Hi <%= current_user.username =%></h2>
+<% end %>
