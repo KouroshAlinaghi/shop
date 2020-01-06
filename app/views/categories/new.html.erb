@@ -1,0 +1,22 @@
+<div class="container"><br>
+  <h1>Create Category</h1><br>
+  <%= form_for :category, url: {action: "create"} do |f| %>
+    <% if @category.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= "#{pluralize(@category.errors.count, "Error")} prohibited this category from being saved:" %></h2>
+        <ul>
+          <% @category.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= f.label :parent_id, "Select Category's Parent" %><br>
+    <%= f.select :parent_id, options_for_select(@categories.collect { |c| [c.title.titleize, c.id] }, 1), {}, { id: 'categiries_select' } %><br>
+    <%= f.label :is_parent, "Is Category Level 1? (Hint: if this ckeck-box be checked, rails will ignore above select form)" %><br>
+    <%= f.check_box :is_parent %><br>
+    <%= f.label :title, "Title:" %>
+    <%= f.text_field :title, label: "Title:", class: "form-control", placeholder: "Enter Category's Title" %><br>
+    <%= f.submit "Create Category", class: "btn btn-primary" %>
+  <% end %>
+</div>

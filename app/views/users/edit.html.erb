@@ -1,0 +1,11 @@
+<%= form_for @user, url: {action: "update"} do |form| %>
+  <p>
+  Your Current Username: <%= @user.username %><br>
+    <%= form.label :username, "Your Userame:" %>
+    <%= form.text_field :username %>
+  </p>
+  <p class='buttons'>
+    <%= form.submit "Save Changes" %>
+  </p>
+<% end %>
+

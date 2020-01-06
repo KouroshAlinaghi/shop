@@ -1,0 +1,26 @@
+<div class="container">
+  <table class="table mt-5 table-bordered">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Comments Count</th>
+      <th>Category</th>
+      <th>Delete Product</th>
+      <th>See Product</th>
+    </tr>
+    <% @products.each do |p| %>
+      <tr>
+        <td><%= p.id %></td>
+        <td><%= p.name %></td>
+        <td><%= p.description %></td>
+        <td><%= p.price %>$</td>
+        <td><%= p.comments.length %></td>
+        <td><%= p.category.title %></td>
+        <td><%= button_to "delete", product_path(p), :method=>:delete, :class=>:destroy, class: "btn btn-danger" %></td>
+        <td><%= link_to "See", product_path(p), :method=>:get, :class=>:show %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

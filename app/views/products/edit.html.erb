@@ -1,0 +1,24 @@
+<%= form_for @product, url: {controller: "products", action: "update"}  do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= "#{pluralize(@product.errors.count, "Error")} prohibited this product from being saved:" %></h2>
+      <ul>
+        <% @product.errors.full_messages.each do |msg| %>          
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  Current Image: <image src="<%=(url_for(@product.photo))%>" class="card-img-top" style="width: 200px;"><br>
+  Change Image: <%= f.file_field :photo %><br>
+  Current Category: <%= @product.category.title %><br>
+  <%= f.select(:category_id, @categories.collect { |c| [ c.title, c.id ] }, { include_blank: true }) %><br>
+  Current Name: <%= @product.name %><br>
+  New Name: <%= f.text_field :name %><br>
+  <%= f.text_area :description, placeholder: "New Description", class: "form-control" %><br>
+  Current Price: <%= @product.price %><br>
+  New Price: <input type="text" id="textInput" value="" name="OutputId">
+  <%= f.range_field :price, in: 200..10000, step: 50, class: "custom-range", oninput: "OutputId.value = currency(this.value).format().replace('.00', '') + '$'" %>
+  <%= f.submit "Save Product", class: "btn btn-primary" %>
+<% end %>
+<script src="https://unpkg.com/currency.js@~1.2.0/dist/currency.min.js"></script>

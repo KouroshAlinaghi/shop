@@ -1,0 +1,16 @@
+<% if @cart.products.any? %>
+  <%= link_to "Empty Cart", clear_path, class: "btn btn-success" %>
+  <% @cart.products.each do |product| %>
+    <div class="card m-5" style="width: 28rem;">
+      <image src="<%=(url_for(product.photo))%>" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title"><%= product.name =%></h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= product.category.title %></h6>
+        <p class="card-text"><%= product.description =%></p>
+      <%= link_to "Remove From Cart", toggle_path(product) %>
+     </div>
+    </div>
+  <% end %>
+<% else %>
+  <h2>is empty bitch</h2>
+<% end %>

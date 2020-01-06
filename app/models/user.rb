@@ -2,7 +2,8 @@ class User < ApplicationRecord
   attr_accessor :remember_token
   has_secure_password
 
-  has_many :loans
+  has_many :comments, dependent: :destroy
+  has_one :cart, dependent: :destroy
 
   validates :admin, :inclusion => { :in => [true, false] }
   validates :username, presence: true, uniqueness: true

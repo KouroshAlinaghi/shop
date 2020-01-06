@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="card m-5" style="width: 28rem;">
+    <image src="<%=(url_for(@product.photo))%>" class="card-img-top">
+    <div class="card-body">
+      <h5 class="card-title"><%= @product.name =%></h5>
+      <h6 class="card-subtitle mb-2 text-muted"><%= @product.category.title %></h6>
+      <p class="card-text"><%= @product.description =%></p>
+    <% if is_admin? %>
+      <%= button_to "delete", product_path(@product), :method=>:delete, :class=>:destroy, class: "btn btn-danger" %>
+      <a href="#" class="card-link"><%= @product.price %></a>
+    <% end %>
+    </div>
+    <% unless current_user.nil? %>
+      <% if current_user.cart.products.include? @product %>
+        <%= link_to "Remove From Cart", toggle_path(@product) %>
+      <% else %>
+        <%= link_to "Add To Cart", toggle_path(@product) %>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <h1>Commments For this Product</h2>
+  <% if @comments.any? %>
+    <% @comments.each do |comment| %>
+      <div class="card">
+        <div class="card-header">Comment By <%= comment.user.username =%></div>
+        <div class="card-body"><%= comment.body %></div>
+      </div>
+    <% end %>
+    <br>
+  <% else %>
+    <h4>There is no comment for this product yet :(</h4>
+  <% end %>
+  <%= link_to("Add Comment", comment_new_path(@product)) %><br>
+   <%= link_to("See Comments", comment_index_path(@product)) %>
+</div>
+

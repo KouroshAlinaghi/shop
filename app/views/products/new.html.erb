@@ -1,0 +1,20 @@
+<%= form_for @product, url: {controller: "products", action: "create"}  do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= "#{pluralize(@product.errors.count, "Error")} prohibited this product from being saved:" %></h2>
+      <ul>
+        <% @product.errors.full_messages.each do |msg| %>          
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.file_field :photo %>
+  <%= f.select(:category_id, @categories.collect { |c| [ c.title, c.id ] }, { include_blank: true }) %>
+  <%= f.text_field :name %>
+  <%= f.text_area :description, placeholder: "Enter Your Product", class: "form-control" %><br>
+  <input type="text" id="textInput" value="" name="OutputId">
+  <%= f.range_field :price, in: 200..10000, step: 50, class: "custom-range", oninput: "OutputId.value = currency(this.value).format().replace('.00', '') + '$'" %>
+  <%= f.submit "Post Product", class: "btn btn-primary" %>
+<% end %>
+<script src="https://unpkg.com/currency.js@~1.2.0/dist/currency.min.js"></script>

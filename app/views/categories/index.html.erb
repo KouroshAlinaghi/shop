@@ -1,0 +1,21 @@
+<div class="container">
+  <% def draw category %>
+    <% b=Category.find(category.parent_id).title if category.parent_id %>
+    <ul><%= "#{b}:#{category.title} with level: #{depth category}" %></ul>
+    <div class="dropdown-divider"></div>
+    <% if category.subcategories.length > 0 %>
+      <% for sub in category.subcategories %>
+        <% if sub.subcategories.length == 0 %>
+          <li><%= sub.title %></li> 
+        <% end %>
+        <% draw(sub) if sub.subcategories.length > 0 %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% for cat in @categories %>
+    <% draw cat %>
+  <% end %>
+</div>
+
+
+
