@@ -1,0 +1,15 @@
+current directory: /home/kourosh/Codes/Rails/shop/vendor/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+/home/kourosh/.rbenv/versions/2.7.0/bin/ruby -I /home/kourosh/.rbenv/versions/2.7.0/lib/ruby/site_ruby/2.7.0 -r ./siteconf20200108-13867-lj46wp.rb extconf.rb
+creating Makefile
+
+current directory: /home/kourosh/Codes/Rails/shop/vendor/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" clean
+
+current directory: /home/kourosh/Codes/Rails/shop/vendor/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR="
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+
+current directory: /home/kourosh/Codes/Rails/shop/vendor/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20200108-13867-l5rgw6/skiptrace/internal

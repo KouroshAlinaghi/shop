@@ -13,8 +13,9 @@
   <%= f.select(:category_id, @categories.collect { |c| [ c.title, c.id ] }, { include_blank: true }) %>
   <%= f.text_field :name %>
   <%= f.text_area :description, placeholder: "Enter Your Product", class: "form-control" %><br>
-  <input type="text" id="textInput" value="" name="OutputId">
-  <%= f.range_field :price, in: 200..10000, step: 50, class: "custom-range", oninput: "OutputId.value = currency(this.value).format().replace('.00', '') + '$'" %>
+  <%= f.number_field :price, value: number_to_currency(f.object.price.to_f, delimiter: '', unit: '$'), step: 10 %>
+  <%= f.label :status, "is avilable?" %>
+  <%= f.check_box :status %>
   <%= f.submit "Post Product", class: "btn btn-primary" %>
 <% end %>
 <script src="https://unpkg.com/currency.js@~1.2.0/dist/currency.min.js"></script>

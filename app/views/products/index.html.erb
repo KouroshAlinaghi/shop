@@ -5,9 +5,13 @@
       <th>Name</th>
       <th>Description</th>
       <th>Price</th>
+      <th>Status</th>
       <th>Comments Count</th>
       <th>Category</th>
       <th>Delete Product</th>
+      <% if is_admin? %>
+        <th>Edit Product</th>
+      <% end %>
       <th>See Product</th>
     </tr>
     <% @products.each do |p| %>
@@ -16,9 +20,13 @@
         <td><%= p.name %></td>
         <td><%= p.description %></td>
         <td><%= p.price %>$</td>
+        <td><%= status_to_string p %></td>
         <td><%= p.comments.length %></td>
         <td><%= p.category.title %></td>
         <td><%= button_to "delete", product_path(p), :method=>:delete, :class=>:destroy, class: "btn btn-danger" %></td>
+        <% if is_admin? %>
+          <td><%= link_to "Edit Product", edit_product_path(p) %></td>
+        <% end %>
         <td><%= link_to "See", product_path(p), :method=>:get, :class=>:show %></td>
       </tr>
     <% end %>

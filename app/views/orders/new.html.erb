@@ -1,0 +1,24 @@
+<div class="container"><br>
+  <h1>Create Order</h1><br>
+  <%= form_for :order, url: {action: "create"} do |f| %>
+    <% if @order.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= "#{pluralize(@order.errors.count, "Error")} prohibited this order from being saved:" %></h2>
+        <ul>
+          <% @order.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= f.collection_check_boxes :product_ids, @products, :id, :name do |d| %>
+      <div class="collection-check-box">
+        <%= d.check_box %>
+        <%= d.label %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.hidden_field :cart_id, value: current_user.cart.id %>
+      </div>
+    <% end %>
+    <%= f.submit "Create Order", class: "btn btn-primary" %>
+  <% end %>
+</div>

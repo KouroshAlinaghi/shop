@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :destroy
   has_one :cart, dependent: :destroy
+  has_many :orders, through: :cart
 
   validates :admin, :inclusion => { :in => [true, false] }
   validates :username, presence: true, uniqueness: true

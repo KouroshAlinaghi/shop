@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :authorize_blank, only: [:new, :create]
+
   def new
   end
 
@@ -18,4 +20,11 @@ class SessionsController < ApplicationController
     log_out if logged_in?
     redirect_to root_url
   end
+
+  protected
+
+  def authorize_blank
+    redirect_to root_path if logged_in?
+  end
+
 end

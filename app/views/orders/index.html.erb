@@ -1,0 +1,16 @@
+<% @orders.each do |o| %>
+  <div class="card m-5" style="width: 28rem;">
+    <div class="card-body">
+      <h5 class="card-title"><%= o.price =%>$</h5>
+      <h6 class="card-subtitle mb-2 text-muted"><%= o.products.count %></h6>
+      <%= userable_status o %><br>
+      <% if is_admin? %>
+        for <%= o.user.username %> (id: <%= o.user.id %>)<br>
+        <%= link_to 'Close Order', close_path(o) %>
+      <% else %>
+        <%= link_to "See Order", order_path(o) %><br>
+        <%= link_to "Cancel Order", cancel_path(o) %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

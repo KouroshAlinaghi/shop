@@ -45,7 +45,11 @@ class ProductsController < ApplicationController
 
   def destroy
     @product = Product.find(params[:id])
+    @product_id = @product.id
     if @product.destroy
+      Cart.all.each do |cart|
+        cart.destroy if cart.products.all? { |product| product.id == @product_id } && !cart.orders.any?
+      end
       flash.keep[:notice] = "Successfully deleted product!"
       redirect_to products_path
     else
@@ -54,15 +58,25 @@ class ProductsController < ApplicationController
   end
 
   def toggle
+    Cart.create(user_id: current_user.id) if current_user.cart.nil?
+    @cart = Cart.find_by(user_id: current_user.id)
+    @products = @cart.products
     @product = Product.find(params[:id])
-    !(@products.include? @product) ? @products << @product : @products.destroy(@product)
+    if @products.include?(@product)
+      @products.destroy @product
+    elsif @product.status
+      @products << @product
+    end
+    if !@cart.nil?
+      @cart.destroy unless @cart.products.any?
+    end
     redirect_to product_path @product
   end
 
   protected
 
   def product_params
-    params.require(:product).permit(:name, :price, :description, :photo, :category_id)
+    params.require(:product).permit(:name, :price, :description, :photo, :category_id, :status)
   end
 
   def authorize_admin
@@ -70,7 +84,6 @@ class ProductsController < ApplicationController
   end
 
   def authorize_user
-    @products = current_user.cart.products
     redirect_to root_path if current_user.nil?
   end
 

@@ -7,16 +7,18 @@
       <p class="card-text"><%= @product.description =%></p>
     <% if is_admin? %>
       <%= button_to "delete", product_path(@product), :method=>:delete, :class=>:destroy, class: "btn btn-danger" %>
-      <a href="#" class="card-link"><%= @product.price %></a>
+      Price: <%= @product.price %>$<br>
+      Status: <%= status_to_string @product %><br>
+      <%= link_to "Edit Product", edit_product_path(@product) %><br>
     <% end %>
-    </div>
     <% unless current_user.nil? %>
-      <% if current_user.cart.products.include? @product %>
-        <%= link_to "Remove From Cart", toggle_path(@product) %>
-      <% else %>
+      <% if current_user.cart.nil? || current_user.cart.products.include?(@product) == false %>
         <%= link_to "Add To Cart", toggle_path(@product) %>
+      <% else %>
+        <%= link_to "Remove From Cart", toggle_path(@product) %>
       <% end %>
     <% end %>
+    </div>
   </div>
   
   <h1>Commments For this Product</h2>

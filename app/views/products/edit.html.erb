@@ -18,7 +18,9 @@
   <%= f.text_area :description, placeholder: "New Description", class: "form-control" %><br>
   Current Price: <%= @product.price %><br>
   New Price: <input type="text" id="textInput" value="" name="OutputId">
-  <%= f.range_field :price, in: 200..10000, step: 50, class: "custom-range", oninput: "OutputId.value = currency(this.value).format().replace('.00', '') + '$'" %>
+  <%= f.range_field :price, in: 200..10000, step: 50, class: "custom-range", oninput: "OutputId.value = currency(this.value).format().replace('.00', '') + '$'" %><br>
+  <%= f.label :status, "is avilable?" %> (current status: <%= status_to_string @product %>)
+  <%= f.check_box :status %>
   <%= f.submit "Save Product", class: "btn btn-primary" %>
 <% end %>
 <script src="https://unpkg.com/currency.js@~1.2.0/dist/currency.min.js"></script>

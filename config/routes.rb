@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :orders
   root to: 'pages#welcome'
   resources :users
   resources :pages
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
   get 'edit', to: 'users#edit'
   post 'users/update'
   get 'carts/show'
+  get 'carts', to: 'carts#index'
   get 'categories', to: "categories#index"
   post 'user/user_create_by_admin', to: "users#create_by_admins"
   get    'login'   => 'sessions#new'
@@ -21,5 +23,7 @@ Rails.application.routes.draw do
   get '/products/:id/comments/', to: 'comments#index', as: 'comment_index'
   get 'toggle/:id', to: 'products#toggle', as: 'toggle'
   get 'clear', to: 'carts#clear'
+  get 'close/:id', to: 'orders#close', as: 'close'
+  get 'cancel/:id', to: 'orders#cancel', as: 'cancel'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

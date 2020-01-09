@@ -17,7 +17,6 @@ class UsersController < ApplicationController
   def create_by_admins
     @user = User.new(user_params)
     if @user.save
-      Cart.create(user_id: @user.id)
       flash.keep[:notice] = "Successfully created user"
     else
       render :show
@@ -29,7 +28,6 @@ class UsersController < ApplicationController
     if params[:admin] || !@user.save
       render 'new'
     elsif @user.save
-      Cart.create(user_id: @user.id)
       log_in @user 
       redirect_to root_path
     end
