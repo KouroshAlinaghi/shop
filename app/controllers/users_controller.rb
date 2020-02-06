@@ -25,11 +25,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if params[:admin] || !@user.save
-      render 'new'
-    elsif @user.save
+    @user.admin = false
+    if @user.save
       log_in @user 
       redirect_to root_path
+    else 
+      render plain: "Wrong Args! :("
     end
   end
 

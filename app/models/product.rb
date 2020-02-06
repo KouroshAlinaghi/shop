@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  include PgSearch
   has_one_attached :photo
   has_many :comments, dependent: :destroy
   belongs_to :category
@@ -9,4 +10,9 @@ class Product < ApplicationRecord
   validates :price, presence: true
   validates :photo, presence: true
   validates :status, :inclusion => { :in => [true, false] }
+
+  def self.search(search)
+    where("name ILIKE ?", "%#{search}%")
+    where("description ILIKE ?", "%#{search}%")
+  end
 end

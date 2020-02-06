@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   before_action :authorize_user, only: [:toggle]
 
   def index
-    @products = Product.all
+    @products = params[:search] ? Product.search(params[:search]) : Product.all
   end
 
   def show
