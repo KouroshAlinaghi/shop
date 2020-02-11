@@ -20,7 +20,9 @@ gem 'sassc-rails', '>= 2.1.0'
 gem 'jquery-rails'
 gem 'autoprefixer-rails'
 # Use bcrypt for password encryption
-gem 'pg_search'
+gem 'acts-as-taggable-on', '~> 6.0'
+gem 'simple_form'
+gem 'filterrific'
 gem 'bcrypt'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'

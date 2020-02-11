@@ -1,4 +1,4 @@
-<%= form_for @product, url: {controller: "products", action: "create"}  do |f| %>
+<%= simple_form_for @product, url: {controller: "products", action: "create"}  do |f| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
       <h2><%= "#{pluralize(@product.errors.count, "Error")} prohibited this product from being saved:" %></h2>

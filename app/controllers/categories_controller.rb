@@ -4,7 +4,6 @@ class CategoriesController < ApplicationController
   def index
     @parent_categories = Category.where(parent_id: nil)
     @categories = Category.all
-    @group = set_groups
   end
 
   def new
@@ -27,14 +26,13 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
     @products = []
-    if @category.subcategories.any?
+    @products += @category.products
+    while @category.subcategories.any?
       @category.subcategories.each do |cat|
-        @products + cat.products
+        @category = cat
+        @products += @category.products
       end
-    else
-      @products = @category.products
     end
-
   end
 
   def destroy

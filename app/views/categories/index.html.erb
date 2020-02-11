@@ -1,19 +1,21 @@
+
+<style>
+  * {
+    font-family: Roboto;
+  }
+</style>
+
 <div class="container">
-  <% def draw category %>
-    <% b=Category.find(category.parent_id).title if category.parent_id %>
-    <ul><%= "#{b}:#{category.title} with level: #{depth category}" %></ul>
-    <div class="dropdown-divider"></div>
-    <% if category.subcategories.length > 0 %>
-      <% for sub in category.subcategories %>
-        <% if sub.subcategories.length == 0 %>
-          <li><%= sub.title %></li> 
+  <% def draw cat %>
+    <h5 style="margin-left: <%= depth(cat) * 40 %>px"><%= link_to "#{cat.title}", category_path(cat) %></h5><br>
+      <% if cat.subcategories.any? %>
+        <% for c in cat.subcategories %>
+          <% draw c %>
         <% end %>
-        <% draw(sub) if sub.subcategories.length > 0 %>
       <% end %>
-    <% end %>
   <% end %>
-  <% for cat in @categories %>
-    <% draw cat %>
+  <% for category in @parent_categories %>
+    <% draw category %>
   <% end %>
 </div>
 

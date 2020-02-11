@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  include PgSearch
+  include Filterable
   has_one_attached :photo
   has_many :comments, dependent: :destroy
   belongs_to :category
@@ -11,8 +11,14 @@ class Product < ApplicationRecord
   validates :photo, presence: true
   validates :status, :inclusion => { :in => [true, false] }
 
-  def self.search(search)
+  scope :filter_by_status, -> (status) { where status: status == 'on' }
+  scope :filter_by_category_ids, -> (category_ids) {
+    category_ids.map! { |c| c = c.to_i }
+    where(category_id: category_ids)
+  }
+  scope :filter_by_search, -> (search) {
     where("name ILIKE ?", "%#{search}%")
     where("description ILIKE ?", "%#{search}%")
-  end
+  }
+
 end
