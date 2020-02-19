@@ -10,5 +10,5 @@ module CategoriesHelper
     end
     depth
   end
-
+  
 end

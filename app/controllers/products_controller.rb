@@ -15,12 +15,12 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @categories = Category.all.select { |cat| cat.subcategories.length == 0 }
+    @categories = Category.all
     @product = Product.new
   end
 
   def create
-    @categories = Category.all.select { |cat| cat.subcategories.length == 0 }
+    @categories = Category.all
     @product = Product.new(product_params)
     if @product.save
       redirect_to products_path
@@ -30,12 +30,12 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @categories = Category.all.select { |cat| cat.subcategories.length == 0 }
+    @categories = Category.all
     @product = Product.find(params[:id])
   end
 
   def update
-    @categories = Category.all.select { |cat| cat.subcategories.length == 0 }
+    @categories = Category.all
     @product = Product.find(params[:id])
     if @product.update(product_params)
       redirect_to product_path @product
