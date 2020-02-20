@@ -1,5 +1,9 @@
 module SessionsHelper
 
+  def authorize_blank
+    redirect_to root_path if logged_in?
+  end
+
   # Logs in the given user.
   def log_in(user)
     session[:user_id] = user.id

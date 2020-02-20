@@ -1,6 +1,4 @@
 class CartsController < ApplicationController
-  include SessionsHelper
-  include UsersHelper
   before_action :find_cart_no_admin, except: [:index]
   before_action :authorize_admin, only: [:index]
 
@@ -21,15 +19,6 @@ class CartsController < ApplicationController
 
   def cart_params
     params.require(:cart).permit(:user_id)
-  end
-
-  def find_cart_no_admin
-    @cart = current_user.cart
-    redirect_to root_path if is_admin?
-  end
-
-  def authorize_admin
-    redirect_to root_path unless is_admin?
   end
 
 end

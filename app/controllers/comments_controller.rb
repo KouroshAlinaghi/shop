@@ -40,11 +40,6 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:body, :user_id)
   end
 
-  def authorize_admin_or_owner
-    @comment = Comment.find(params[:id])
-    redirect_to root_path unless is_admin? || current_user == @comment.user
-  end
-
 
 end
 

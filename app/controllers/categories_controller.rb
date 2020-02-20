@@ -1,5 +1,4 @@
 class CategoriesController < ApplicationController
-  include CategoriesHelper
 
   def index
     @parent_categories = Category.where(parent_id: nil)

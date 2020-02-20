@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
-  include SessionsHelper
-  include UsersHelper
   before_action :authorize_admin, only: [:create_by_admins, :destroy]
-  before_action :authorize_user, only: [:create, :new]
-  before_action :login, only: [:show, :destroy, :edit, :update]
+  before_action :authorize_not_signed_in, only: [:create, :new]
+  before_action :authorize_user, only: [:show, :destroy, :edit, :update]
     
   def new
     @user = User.new
@@ -64,18 +62,6 @@ class UsersController < ApplicationController
 
   def user_update_params
     params.require(:user).permit(:username)
-  end
-
-  def authorize_admin
-    redirect_to root_path unless is_admin?
-  end
-
-  def authorize_user
-    redirect_to root_path unless current_user.nil?
-  end
-
-  def login
-    redirect_to root_path if current_user.nil?
   end
 
 end

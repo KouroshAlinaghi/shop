@@ -1,6 +1,4 @@
 class ProductsController < ApplicationController
-  include SessionsHelper
-  include UsersHelper
   before_action :authorize_admin, only: [:create, :new, :destroy]
   before_action :authorize_user, only: [:toggle]
 
@@ -78,14 +76,6 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :price, :description, :photo, :category_id, :status)
-  end
-
-  def authorize_admin
-    redirect_to root_path unless is_admin?
-  end
-
-  def authorize_user
-    redirect_to root_path if current_user.nil?
   end
 
 end
