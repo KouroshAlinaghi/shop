@@ -11,13 +11,7 @@
       Status: <%= status_to_string @product %><br>
       <%= link_to "Edit Product", edit_product_path(@product) %><br>
     <% end %>
-    <% unless current_user.nil? %>
-      <% if current_user.cart.nil? || current_user.cart.products.include?(@product) == false %>
-        <%= link_to "Add To Cart", toggle_path(@product) %>
-      <% else %>
-        <%= link_to "Remove From Cart", toggle_path(@product) %>
-      <% end %>
-    <% end %>
+    <% button_to "Add to cart", line_items_path(:product_id => @product.id) %>
     </div>
   </div>
   

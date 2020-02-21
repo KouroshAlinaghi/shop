@@ -13,17 +13,6 @@ class Product < ApplicationRecord
 
   scope :filter_by_status, -> (status) { where status: status == 'on' }
 
-#  def categories_chain 
-#    @cat_chain = []
-#    @cat = category
-#    while @cat.parent_id
-#      @cat_chain << @cat.id
-#      @cat = Category.find(@cat.parent_id)
-#    end
-#    @cat_chain << @cat.id
-#    @cat_chain
-#  end
-
   scope :filter_by_category_ids, -> (category_ids) {
     where(category_id: category_ids.map! { |c| c = Category.find(c.to_i).chain } .flatten)
   }

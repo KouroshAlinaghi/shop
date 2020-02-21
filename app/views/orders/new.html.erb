@@ -1,24 +1,16 @@
-<div class="container"><br>
-  <h1>Create Order</h1><br>
-  <%= form_for :order, url: {action: "create"} do |f| %>
-    <% if @order.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= "#{pluralize(@order.errors.count, "Error")} prohibited this order from being saved:" %></h2>
-        <ul>
-          <% @order.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <%= f.collection_check_boxes :product_ids, @products, :id, :name do |d| %>
-      <div class="collection-check-box">
-        <%= d.check_box %>
-        <%= d.label %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
-        <%= f.hidden_field :cart_id, value: current_user.cart.id %>
-      </div>
-    <% end %>
-    <%= f.submit "Create Order", class: "btn btn-primary" %>
-  <% end %>
-</div>
+<h1>Orders#new</h1>
+<p>Find me in app/views/orders/new.html.erb</p>
+<%= form_for(@order) do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name, required: true, autofocus: true %>
+  </p>
+    <%= f.hidden_field :email, value: current_user.email %>
+  <p>
+    <%= f.label :address %><br>
+    <%= f.text_area :address %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

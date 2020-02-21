@@ -1,8 +1,11 @@
 class CreateOrders < ActiveRecord::Migration[6.0]
   def change
     create_table :orders do |t|
-      t.decimal :price
-      t.boolean :is_closed
+      t.string :name
+      t.string :email
+      t.text :address
+      t.integer :cart_id
+      t.string :pay_method
 
       t.timestamps
     end
