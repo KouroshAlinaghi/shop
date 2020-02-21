@@ -14,10 +14,9 @@ gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Use bootstrap for stylesheets
-gem 'bootstrap'
-gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sassc-rails', '>= 2.1.0'
 gem 'jquery-rails'
+gem 'bootstrap'
 gem 'autoprefixer-rails'
 # Use bcrypt for password encryption
 gem 'acts-as-taggable-on', '~> 6.0'
