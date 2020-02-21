@@ -20,7 +20,6 @@ gem 'bootstrap'
 gem 'autoprefixer-rails'
 # Use bcrypt for password encryption
 gem 'acts-as-taggable-on', '~> 6.0'
-gem 'simple_form'
 gem 'filterrific'
 gem 'bcrypt'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
