@@ -12,16 +12,21 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @comment = Product.find(params[:product_id]).comments.new
+    @comment = Comments.new
   end
 
   def create
-    @product = Product.find(params[:product_id])
-    @comment = @product.comments.new(comment_params)
-    if @comment.save
-      redirect_to product_path(@product)
-    else
-      render 'new'
+    @comment = Comment.new(comment_params)
+ 
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to @comment.post, notice: 'Comment was successfully created.' }
+        format.js   { }
+        format.json { render :show, status: :created, location: @comment }
+      else
+        format.html { render :new }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -37,7 +42,7 @@ class CommentsController < ApplicationController
   protected
 
   def comment_params
-    params.require(:comment).permit(:body, :user_id)
+    params.require(:comment).permit(:body, :user_id, :product_id)
   end
 
 

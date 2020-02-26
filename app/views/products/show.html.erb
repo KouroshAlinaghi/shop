@@ -14,8 +14,17 @@
     <% button_to "Add to cart", line_items_path(:product_id => @product.id) %>
     </div>
   </div>
-  
-  <h1>Commments For this Product</h2>
+  <%= form_for [@product, Comment.new], class: "comment_form",:remote => true do |f| %>
+    <div class="field">
+      <%= f.text_area :body, class: "form-control col-lg-8", placeholder: "Provide comment here." %>
+      <%= f.hidden_field :product_id, :value => @product.id %>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Leave Comment" %>
+    </div>
+  <% end %> 
+ <h1>Commments For this Product</h2>
   <% if @comments.any? %>
     <% @comments.each do |comment| %>
       <div class="card">
@@ -27,7 +36,5 @@
   <% else %>
     <h4>There is no comment for this product yet :(</h4>
   <% end %>
-  <%= link_to("Add Comment", comment_new_path(@product)) %><br>
-   <%= link_to("See Comments", comment_index_path(@product)) %>
 </div>
 

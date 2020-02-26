@@ -1,7 +1,7 @@
 <div class="container">
   <% if @products.present? %>
 
-    <%= form_tag(products_path, :method => "get", remote: true) do %>
+    <%= form_tag(products_path, :method => "get") do %>
       <%= hidden_field_tag :status, false %>
       is availavle?:<%= check_box_tag :status, params[:status], true %><br>
       <%= text_field_tag :search, params[:search], placeholder: "Enter Your Search Text:" %><br>
@@ -9,6 +9,7 @@
         <%= check_box_tag "category_ids[]", c.id %>
         <%= c.title  %>
       <% end %>
+      <%= submit_tag "Filter Products" %>
     <% end %>
     <div class="card-columns">
     <% @products.each do |p| %>

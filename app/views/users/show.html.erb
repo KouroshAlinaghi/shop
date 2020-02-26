@@ -1,7 +1,4 @@
-<head>
-</head>
-
-
+<head></head>
 <div class="container">
     <h2><%= current_user.username if logged_in? =%></h2>
 
@@ -35,7 +32,9 @@
   <h2>Adding New User</h2>  
   <br>
 
-  <%= form_for @new_user, url: {controller: 'users', action: "create_by_admins"} do |form| %> 
+  <div id="task-form" style="display:none;"></div>
+
+  <%= form_for @new_user, url: {controller: 'users', action: "create_by_admins"}, remote: true do |form| %> 
 
   <p>
     <%= form.label :email, "Your E-mail:" %>
