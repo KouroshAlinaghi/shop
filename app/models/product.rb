@@ -11,7 +11,7 @@ class Product < ApplicationRecord
   validates :photo, presence: true
   validates :status, :inclusion => { :in => [true, false] }
 
-  scope :filter_by_status, -> (status) { where status: status == 'on' }
+  scope :filter_by_status, -> (status) { where status: status }
 
   scope :filter_by_category_ids, -> (category_ids) {
     where(category_id: category_ids.map! { |c| c = Category.find(c.to_i).chain } .flatten)

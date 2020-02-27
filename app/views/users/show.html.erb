@@ -10,20 +10,19 @@
           <%= flash[:error] =%>
   <table class="table mt-5 table-bordered">
   <tr>
+    <th>ID</th>
     <th>E-mail</th>
     <th>Username</th>
     <th>Admin</th>
-    <th>Encrypted Password</th>
     <th>Delete User</th>
   </tr>
-
 <% @users.each do |user| %>
 <tr>
+    <td><%= user.id %></td>
     <td><%= user.email %></td>
     <td><%= user.username %></td>
     <td><%= user.admin %></td>
-    <td><%= user.password_digest %></td>
-    <td><%= button_to "delete", user_path(user), :method=>:delete, :class=>:destroy %></td>
+    <td><%= button_to "Destroy", user_path(user), method: 'delete', class: "delete_user" %></td>
 </tr>
 <% end %>
   </table>
@@ -32,9 +31,7 @@
   <h2>Adding New User</h2>  
   <br>
 
-  <div id="task-form" style="display:none;"></div>
-
-  <%= form_for @new_user, url: {controller: 'users', action: "create_by_admins"}, remote: true do |form| %> 
+  <%= form_for @new_user, url: {controller: 'users', action: "create_by_admins"} do |form| %> 
 
   <p>
     <%= form.label :email, "Your E-mail:" %>
@@ -64,6 +61,7 @@
   <p class='buttons'>
     <%= form.submit "Create User!" %>
   </p>
+
 
 <% end %>
 

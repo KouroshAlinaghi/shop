@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :authorize_admin, only: [:create_by_admins, :destroy]
   before_action :authorize_not_signed_in, only: [:create, :new]
   before_action :authorize_user, only: [:show, :destroy, :edit, :update]
+#  skip_before_action :verify_authenticity_token, only: [:create_by_admins]
     
   def new
     @user = User.new
@@ -15,7 +16,11 @@ class UsersController < ApplicationController
   def create_by_admins
     @user = User.new(user_params)
     if @user.save
-      flash.keep[:notice] = "Successfully created user"
+      respond_to do |format|
+        format.html { redirect_to user_path(current_user) }
+        format.json { head :no_content }
+        format.js { render layout: false }
+      end
     else
       render :show
     end
@@ -47,10 +52,12 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    if @user.destroy
-      flash.keep[:notice] = "Successfully deleted user!"
-    else
-      flash.keep[:error] = "Cannot Delete User"
+    @user.destroy
+
+    respond_to do |format|
+      format.html { redirect_to user_path(current_user) }
+      format.json { head :no_content }
+      format.js { render layout: false }
     end
   end
   

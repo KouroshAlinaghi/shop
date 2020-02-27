@@ -14,9 +14,9 @@ gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker'
 gem 'react-rails'
+gem 'jquery-rails'
 # Use bootstrap for stylesheets
 gem 'sassc-rails', '>= 2.1.0'
-gem 'jquery-rails'
 gem 'bootstrap'
 gem 'autoprefixer-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
