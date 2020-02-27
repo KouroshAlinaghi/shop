@@ -22,4 +22,11 @@ class Product < ApplicationRecord
     where("description ILIKE ?", "%#{search}%")
   }
 
+  scope :filter_by_lowest_price, -> (min_price) {
+    where("price >= #{min_price}")
+  }
+
+  scope :filter_by_highest_price, -> (max_price) {
+    where("price <= #{max_price}")
+  }
 end

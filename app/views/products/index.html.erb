@@ -2,6 +2,9 @@
   <% if @products.present? %>
 
     <%= form_tag(products_path, :method => "get") do %>
+      at least price: <%= number_field_tag :lowest_price, params[:lowest_price], in: @lowest_price..@highest_price, step: 20  %><br>
+      maximum price: <%= number_field_tag :highest_price, params[:highest_price], in: @lowest_price..@highest_price, step: 20 %><br>
+      <%= hidden_field_tag :price, params[:price] %>
       <%= hidden_field_tag :status, false %>
       is availavle?:<%= check_box_tag :status, params[:status], true %><br>
       <%= text_field_tag :search, params[:search], placeholder: "Enter Your Search Text:" %><br>

@@ -4,7 +4,9 @@ class ProductsController < ApplicationController
 
   def index
     @categories = Category.all
-    @products = Product.filter(params.slice(:status, :category_ids, :search))
+    @products = Product.filter(params.slice(:status, :category_ids, :search, :lowest_price, :highest_price))
+    @lowest_price = Product.all.map{ |p| p.price } .min
+    @highest_price = Product.all.map{ |p| p.price } .max
   end
 
   def show

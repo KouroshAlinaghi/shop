@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_action :authorize_admin, only: [:create_by_admins, :destroy]
   before_action :authorize_not_signed_in, only: [:create, :new]
   before_action :authorize_user, only: [:show, :destroy, :edit, :update]
-#  skip_before_action :verify_authenticity_token, only: [:create_by_admins]
     
   def new
     @user = User.new
