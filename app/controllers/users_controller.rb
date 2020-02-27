@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @users, @new_user = User.all, User.new if is_admin?
+    @new_user = User.new
+    @users = User.filter(params.slice(:is_admin, :email, :username))
     @user = current_user
   end
 

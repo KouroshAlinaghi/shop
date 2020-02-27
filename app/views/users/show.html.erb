@@ -8,6 +8,15 @@
         <% if is_admin? %>
           <%= flash[:notice] =%>
           <%= flash[:error] =%>
+  <div>
+    <%= form_tag(user_path(current_user), :method => "get") do %>
+      <%= hidden_field_tag :is_admin, false %>
+      Is Admin: <%= check_box_tag :is_admin, params[:is_admin], true %><br>
+      Username: <%= text_field_tag :username, params[:username] %><br>
+      email: <%= text_field_tag :email, params[:email] %><br>
+      <%= submit_tag "Filter Users" %>
+    <% end %>
+    </div>
   <table class="table mt-5 table-bordered">
   <tr>
     <th>ID</th>

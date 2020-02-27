@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include Filterable
   attr_accessor :remember_token
   has_secure_password
 
@@ -30,4 +31,15 @@ class User < ApplicationRecord
   def self.new_token
     SecureRandom.urlsafe_base64
   end
+
+  scope :filter_by_username, -> (search) {
+    where("username ILIKE ?", "%#{search}%")
+  }
+
+  scope :filter_by_email, -> (search) {
+    where("email ILIKE ?", "%#{search}%")
+  }
+
+  scope :filter_by_is_admin, -> (is_admin) { where admin: is_admin }
+
 end
