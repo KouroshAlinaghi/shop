@@ -1,39 +1,27 @@
 class CommentsController < ApplicationController
   before_action :authorize_user, only: [:new, :create, :destroy]
-  before_action :authorize_admin_or_owner, only: [:destroy]
+  before_action :authorize_admin_or_owner_for_comment, only: [:destroy]
+  skip_before_action :verify_authenticity_token
 
   def index
     @product = Product.find(params[:product_id])
     @comments = @product.comments
   end 
 
-  def show
-    @comment = Comment.find(params[:id])
-  end
-
-  def new
-    @comment = Comments.new
-  end
-
   def create
     @comment = Comment.new(comment_params)
- 
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comment.post, notice: 'Comment was successfully created.' }
-        format.js   { }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if @comment.save
+      redirect_to product_comments_path(params[:product_id])
+    else
+      sredirect_to product_path(params[:product_id])
     end
   end
 
   def destroy
+    @product = @comment.product
     if @comment.destroy
       flash.keep[:notice] = "Successfully deleted comment!"
-      redirect_to root_path
+      redirect_to product_path @product
     else
       flash.keep[:error] = "Cannot Delete comment"
     end

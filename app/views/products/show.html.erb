@@ -14,7 +14,7 @@
     <% button_to "Add to cart", line_items_path(:product_id => @product.id) %>
     </div>
   </div>
-  <%= form_for [@product, Comment.new], class: "comment_form",:remote => true do |f| %>
+  <%= form_for [@product, Comment.new], class: "comment_form" do |f| %>
     <div class="field">
       <%= f.text_area :body, class: "form-control col-lg-8", placeholder: "Provide comment here." %>
       <%= f.hidden_field :product_id, :value => @product.id %>

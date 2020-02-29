@@ -5,7 +5,7 @@
       <div class="card-body">
         <h5 class="card-title">Comment for <%= comment.product.name =%> product</h5>
         <p class="card-text"><%= comment.body =%></p>
-      <%= button_to "delete", comment_path(comment), :method=>:delete, :class=>:destroy, class: "btn btn-danger" %>
+        <%= button_to "delete", {controller: "comments", action: "destroy", id: comment.id}, :method=>:delete, :class=>:destroy, class: "btn btn-danger" %>
       </div>
     </div>
   <% end %>
