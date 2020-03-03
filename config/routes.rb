@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   delete 'line_items/:id' => "line_items#destroy"
   get 'edit', to: 'users#edit'
   post 'users/update'
+  get 'signup', to: "users#new", as: "new_user_path"
+  post 'users/create', to: "users#create", as: "create_user_path"
   get 'dashboard', to: 'users#show', as: 'user'
   post 'dashboard/user_create_by_admin', to: "users#create_by_admins", as: 'craete_by_admins'
   delete 'dashboard/:id', to: 'users#destroy', as: 'destroy_user'
