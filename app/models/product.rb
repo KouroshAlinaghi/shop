@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  self.per_page = 3
   include Filterable
   has_one_attached :photo
   has_many :comments, dependent: :destroy
@@ -29,4 +30,5 @@ class Product < ApplicationRecord
   scope :filter_by_highest_price, -> (max_price) {
     where("price <= #{max_price}")
   }
+
 end
