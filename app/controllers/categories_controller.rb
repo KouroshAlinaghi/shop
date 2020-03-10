@@ -22,16 +22,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def show
-    @category = Category.find(params[:id])
-    @products = []
-    @products += @category.products
-    while @category.subcategories.any?
-      @category.subcategories.each do |cat|
-        @category = cat
-        @products += @category.products
-      end
-    end
   end
 
   def destroy
