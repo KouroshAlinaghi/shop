@@ -2,6 +2,14 @@
       <% if @products.present? %>
         <%= form_tag(products_path, :method => "get") do %>
           <div class="form-group">
+            <%= label_tag :order_by_option %>
+            <%= select_tag :order_by_option, options_for_select(["ASC", "DESC"]) %>
+          </div>
+          <div class="form-group">
+            <%= label_tag :order_by %>
+            <%= select_tag :order_by, options_for_select(["price", "name", "created_at", "impressions_count"]) %>
+          </div>
+          <div class="form-group">
             <%= label_tag :search %>
             <%= text_field_tag :search, params[:search], placeholder: "Enter Your Search Text:", class: "form-control" %>
           </div>

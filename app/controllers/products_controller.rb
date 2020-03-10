@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
 
   def index
     @categories = Category.all
-    @products = Product.filter(params.slice(:status, :category_ids, :search, :lowest_price, :highest_price)).page(params[:page])
+    @products = Product.filter(params.slice(:status, :category_ids, :search, :lowest_price, :highest_price)).page(params[:page]).order("#{params[:order_by]} #{params[:order_by_option]}")
     @lowest_price = Product.all.map{ |p| p.price } .min
     @highest_price = Product.all.map{ |p| p.price } .max
   end
