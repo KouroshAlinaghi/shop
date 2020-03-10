@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  is_impressionable
   self.per_page = 3
   include Filterable
   has_one_attached :photo

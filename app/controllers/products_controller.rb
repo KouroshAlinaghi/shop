@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :authorize_admin, only: [:create, :new, :destroy]
   before_action :authorize_user, only: [:toggle]
+  impressionist :actions=>[:show]
 
   def index
     @categories = Category.all

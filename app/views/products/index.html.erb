@@ -33,6 +33,7 @@
           <div class="card-body">
             <h5 class="card-title"><%= p.name =%></h5>
             <h6 class="card-subtitle mb-2 text-muted"><%= p.category.title %></h6>
+            <h6 class="card-subtitle mb-2 text-muted">Views Count:<%= p.impressionist_count %></h6>
             <p class="card-text"><%= p.description =%></p>
             <%= button_to "delete", product_path(p), :method=>:delete, :class=>:destroy, class: "btn btn-danger" if is_admin? %>
             Price: <%= p.price %>$<br>
