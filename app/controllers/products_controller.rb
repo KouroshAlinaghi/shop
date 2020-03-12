@@ -1,13 +1,12 @@
 class ProductsController < ApplicationController
   before_action :authorize_admin, only: [:create, :new, :destroy]
   before_action :authorize_user, only: [:toggle]
-  impressionist :actions=>[:show]
-
   def index
     @categories = Category.all
+    @options_for_select = {"By Price": "price", "By Name": "name", "By Time": "created_at"}
     @products = Product.filter(params.slice(:status, :category_ids, :search, :lowest_price, :highest_price)).page(params[:page]).order("#{params[:order_by]} #{params[:order_by_option]}")
-    @lowest_price = Product.all.map{ |p| p.price } .min
-    @highest_price = Product.all.map{ |p| p.price } .max
+    @lowest_price = Product.all.map { |p| p.price } .min
+    @highest_price = Product.all.map { |p| p.price } .max
   end
 
   def show

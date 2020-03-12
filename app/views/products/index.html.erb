@@ -1,59 +1,59 @@
 <div class="container">
-      <% if @products.present? %>
-        <%= form_tag(products_path, :method => "get") do %>
-          <div class="form-group">
-            <%= label_tag :order_by_option %>
-            <%= select_tag :order_by_option, options_for_select(["ASC", "DESC"]) %>
-          </div>
-          <div class="form-group">
-            <%= label_tag :order_by %>
-            <%= select_tag :order_by, options_for_select(["price", "name", "created_at", "impressions_count"]) %>
-          </div>
-          <div class="form-group">
-            <%= label_tag :search %>
-            <%= text_field_tag :search, params[:search], placeholder: "Enter Your Search Text:", class: "form-control" %>
-          </div>
-          <div class="form-group">
-            <%= label_tag :lowest_price %>
-            <%= number_field_tag :lowest_price, params[:lowest_price], in: @lowest_price..@highest_price, step: 20, class: "form-control"  %>
-            <%= label_tag :highest_prise %>
-            <%= number_field_tag :highest_price, params[:highest_price], in: @lowest_price..@highest_price, step: 20, class: 'form-control' %>
-          </div>
-            <%= hidden_field_tag :price, params[:price] %>
-            <%= hidden_field_tag :status, false %>
-          <div class="form-group form-check">
-            <%= check_box_tag :status, params[:status], true, class: 'form-check-input' %>
-            <%= label_tag :status, 'Only Available?', class: 'form-check-lebel' %>
-          </div>
-          <% for c in Category.all %>
-            <div class="form-group form-check">
-              <%= check_box_tag "category_ids[]", c.id %>
-              <%= label_tag :status, c.title, class: 'form-check-lebel' %>
-            </div>
-          <% end %>
-          <%= submit_tag "Filter Products", class: "btn btn-primary" %>
-        <% end %>
-        <%= link_to 'Reset Filters', root_path %>
-      <div class="card-columns">
-        <% @products.each do |p| %>
-          <div class="card m-5" style="width: 28rem; margin: 50px;">
+  <%= form_tag(products_path, :method => "get") do %>
+    <div class="form-group">
+      <%= label_tag :order_by_option %>
+      <%= select_tag :order_by_option, options_for_select(["ASC", "DESC"]) %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :order_by %>
+      <%= select_tag :order_by, options_for_select(@options_for_select) %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :search %>
+      <%= text_field_tag :search, params[:search], placeholder: "Enter Your Search Text:", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :lowest_price %>
+      <%= number_field_tag :lowest_price, params[:lowest_price], in: @lowest_price..@highest_price, step: 20, class: "form-control"  %>
+      <%= label_tag :highest_prise %>
+      <%= number_field_tag :highest_price, params[:highest_price], in: @lowest_price..@highest_price, step: 20, class: 'form-control' %>
+    </div>
+    <div class="form-group form-check">
+      <%= hidden_field_tag :status, false %>
+      <%= check_box_tag :status, params[:status], true, class: 'form-check-input' %>
+      <%= label_tag :status, 'Only Available?', class: 'form-check-lebel' %>
+    </div>
+    <% for c in Category.all %>
+      <div class="form-group form-check">
+        <%= check_box_tag "category_ids[]", c.id %>
+        <%= label_tag :status, c.title, class: 'form-check-lebel' %>
+      </div>
+    <% end %>
+    <%= submit_tag "Filter Products", class: "btn btn-primary" %>
+  <% end %>
+  <%= link_to 'Reset Filters', root_path %>
+  <% if @products.present? %>
+    <div class="card-columns">
+      <% @products.each do |p| %>
+        <div class="card m-5" style="width: 28rem; margin: 50px;">
           <image src="<%=(url_for(p.photo))%>" class="card-img-top">
           <div class="card-body">
             <h5 class="card-title"><%= p.name =%></h5>
             <h6 class="card-subtitle mb-2 text-muted"><%= p.category.title %></h6>
-            <h6 class="card-subtitle mb-2 text-muted">Views Count:<%= p.impressionist_count %></h6>
             <p class="card-text"><%= p.description =%></p>
             <%= button_to "delete", product_path(p), :method=>:delete, :class=>:destroy, class: "btn btn-danger" if is_admin? %>
             Price: <%= p.price %>$<br>
             Status: <%= status_to_string p %><br>
             <%= link_to "Edit Product", edit_product_path(p) if is_admin? %><br>
+            <%= link_to "See Product", product_path(p) %><br>
             <%= button_to "Add to cart", line_items_path(:product_id => p.id), :method => :post %>
           </div>
         </div>
       <% end %>
-      <%= will_paginate @products, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-    <% else %>
-      <p>didn't match :(</p>
-    <% end %>
+    </div>
+    <%= will_paginate @products, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  <% else %>
+    <p>didn't match :(</p>
+  <% end %>
 </div>
 

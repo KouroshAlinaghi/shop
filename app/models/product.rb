@@ -1,5 +1,4 @@
 class Product < ApplicationRecord
-  is_impressionable
   self.per_page = 3
   include Filterable
   has_one_attached :photo
@@ -9,7 +8,7 @@ class Product < ApplicationRecord
   has_and_belongs_to_many :orders
   validates :description, presence: true
   validates :name, presence: true, uniqueness: true
-  validates :price, presence: true
+  validates :price, presence: true, numericality: { greater_than: 0, less_than: 1000000 }
   validates :photo, presence: true
   validates :status, :inclusion => { :in => [true, false] }
 
