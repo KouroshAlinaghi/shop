@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
   before_action :authorize_admin, only: [:create, :new, :destroy]
-  before_action :authorize_user, only: [:toggle]
   def index
     @categories = Category.all
     @options_for_select = {"By Price": "price", "By Name": "name", "By Time": "created_at"}
@@ -57,22 +56,6 @@ class ProductsController < ApplicationController
     else
       flash.keep[:error] = "Cannot Delete product"
     end
-  end
-
-  def toggle
-    Cart.create(user_id: current_user.id) if current_user.cart.nil?
-    @cart = Cart.find_by(user_id: current_user.id)
-    @products = @cart.products
-    @product = Product.find(params[:id])
-    if @products.include?(@product)
-      @products.destroy @product
-    elsif @product.status
-      @products << @product
-    end
-    if !@cart.nil?
-      @cart.destroy unless @cart.products.any?
-    end
-    redirect_to product_path @product
   end
 
   protected
