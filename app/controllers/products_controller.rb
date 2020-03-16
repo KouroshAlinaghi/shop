@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   def index
     @categories = Category.all
     @options_for_select = {"By Price": "price", "By Name": "name", "By Time": "created_at"}
-    @products = Product.filter(params.slice(:status, :category_ids, :search, :lowest_price, :highest_price)).page(params[:page]).order("#{params[:order_by]} #{params[:order_by_option]}")
+    @products = Product.filter(params.slice(:only_available, :category_ids, :search, :lowest_price, :highest_price)).page(params[:page]).order("#{params[:order_by]} #{params[:order_by_option]}")
     @lowest_price = Product.all.map { |p| p.price } .min
     @highest_price = Product.all.map { |p| p.price } .max
   end
