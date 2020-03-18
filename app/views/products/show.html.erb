@@ -30,6 +30,14 @@
       <div class="card">
         <div class="card-header">Comment By <%= comment.user.username =%></div>
         <div class="card-body"><%= comment.body %></div>
+        <%=link_to like_comment_path(comment), method: :put, class: 'btn btn-default btn-sm' do %>
+          <span class="glyphicon glyphicon-chevron-up"></span>
+          like <%=comment.get_upvotes.size%></td>
+        <% end %>
+        <%=link_to dislike_comment_path(comment), method: :put, class: 'btn btn-default btn-sm' do %>
+          <span class="glyphicon glyphicon-chevron-down"></span>
+          dislike <%=comment.get_downvotes.size%></td>
+        <%end%>
       </div>
     <% end %>
     <br>

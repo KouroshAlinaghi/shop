@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  acts_as_voter
   include Filterable
   attr_accessor :remember_token
   has_secure_password

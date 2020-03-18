@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   resources :orders, :pages, :categories, :products
-  resources :products do
+  resources :products do 
     resources :comments, except: [:show]
+  end
+  resources :comments, except: [:show] do 
+    member do
+      get "like", to: "comments#upvote"
+      get "dislike", to: "comments#downvote"
+    end
   end
   root 'products#index'
   get 'carts/:id' => "carts#show", as: "cart"

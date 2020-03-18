@@ -20,6 +20,8 @@ gem 'sassc-rails', '>= 2.1.0'
 gem 'bootstrap'
 gem 'autoprefixer-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+# Use this getm for comments (yet)
+gem 'acts_as_votable'
 gem 'turbolinks', '~> 5'
 # Gtihub security alert
 gem "nokogiri", ">= 1.10.8"
